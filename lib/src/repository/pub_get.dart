@@ -2,13 +2,13 @@ import 'package:bender/src/action/action.dart';
 import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 
-final Action mergeMaster = new ActionImpl(
+final Action pubGet = new ActionImpl(
   getMessage: (context) {
     final prUrl = parameterValue<Uri>(context, 'pr-url');
-    return 'update branch $prUrl merge';
+    return 'update branch $prUrl get';
   },
-  helpText: 'Merge master branch into the PR branch',
-  name: 'Merge Master',
+  helpText: 'Run pub get on the PR and commit',
+  name: 'Pub Get',
   parameters: [
     new PrParameter(),
   ],

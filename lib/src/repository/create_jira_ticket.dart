@@ -1,15 +1,12 @@
 import 'package:bender/src/action/action.dart';
+import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 import 'package:bender/src/parameter/string_parameter.dart';
 
 final Action createJiraTicket = new ActionImpl(
   getMessage: (context) {
-    var prUrl = context.parameters
-        .firstWhere((param) => param.name == 'pr-url')
-        .parsedValue;
-    var project = context.parameters
-        .firstWhere((param) => param.name == 'project')
-        .parsedValue;
+    final prUrl = parameterValue<Uri>(context, 'pr-url');
+    final project = parameterValue<String>(context, 'project');
 
     if (project == '') {
       return 'ticket $prUrl';
@@ -20,10 +17,7 @@ final Action createJiraTicket = new ActionImpl(
   helpText: 'Create a JIRA ticket for the given PR',
   name: 'Create JIRA Ticket',
   parameters: [
-    new PrParameter(
-      helpText: 'The URL of the PR to act upon',
-      name: 'pr-url',
-    ),
+    new PrParameter(),
     new StringParameter(
       helpText: 'The project in which to create the new ticket (optional)',
       name: 'project',

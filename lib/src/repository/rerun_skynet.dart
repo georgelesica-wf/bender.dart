@@ -2,13 +2,13 @@ import 'package:bender/src/action/action.dart';
 import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 
-final Action mergeMaster = new ActionImpl(
+final Action rerunSkynet = new ActionImpl(
   getMessage: (context) {
     final prUrl = parameterValue<Uri>(context, 'pr-url');
-    return 'update branch $prUrl merge';
+    return 'rerun skynet for $prUrl';
   },
-  helpText: 'Merge master branch into the PR branch',
-  name: 'Merge Master',
+  helpText: 'Re-run Skynet on the PR',
+  name: 'Re-run Skynet',
   parameters: [
     new PrParameter(),
   ],

@@ -2,13 +2,13 @@ import 'package:bender/src/action/action.dart';
 import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 
-final Action mergeMaster = new ActionImpl(
+final Action dartFormat = new ActionImpl(
   getMessage: (context) {
     final prUrl = parameterValue<Uri>(context, 'pr-url');
-    return 'update branch $prUrl merge';
+    return 'update branch $prUrl format';
   },
-  helpText: 'Merge master branch into the PR branch',
-  name: 'Merge Master',
+  helpText: 'Run Dart formatter on the PR',
+  name: 'Dart Format',
   parameters: [
     new PrParameter(),
   ],
