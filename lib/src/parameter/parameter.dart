@@ -8,7 +8,7 @@ abstract class Parameter<T> {
   /// The raw string value of the parameter as provided by the user
   /// or fetched from the environment.
   ///
-  /// TODO: If we need an onChange event then this will need getter / setters
+  /// TODO: If we need an onChange event then this will need getter / setter
   String rawValue;
 
   Parameter({

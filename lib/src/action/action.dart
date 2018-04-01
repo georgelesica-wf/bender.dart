@@ -1,10 +1,9 @@
-import 'package:bender/src/action/context.dart';
-import 'package:bender/src/parameter/parameter.dart';
-import 'package:bender/src/action/typedefs.dart';
 import 'package:meta/meta.dart';
 
-bool _defaultIsRunnableCallback(Context context) =>
-    context.parameters.every((param) => param.isValueValid);
+import 'package:bender/src/action/context.dart';
+import 'package:bender/src/action/utils.dart';
+import 'package:bender/src/parameter/parameter.dart';
+import 'package:bender/src/action/typedefs.dart';
 
 final _whitespaceRegex = new RegExp(r'\s+\b|\b\s');
 
@@ -35,6 +34,7 @@ abstract class Action implements Context {
   String get name;
 
   /// Parameters accepted by this action.
+  @override
   Iterable<Parameter> get parameters;
 }
 
@@ -54,11 +54,6 @@ class ActionImpl extends Action {
   @override
   final Iterable<Parameter> parameters;
 
-  // TODO: We've conflated "active" and "valid"
-  // Runnable just means we're available to be run, valid means that a run
-  // can be expected to succeed. They are similar in many cases, but maybe
-  // not all cases?
-
   ActionImpl({
     @required this.getMessage,
     this.helpText: '',
@@ -66,5 +61,5 @@ class ActionImpl extends Action {
     @required this.name,
     this.parameters: const [],
   })
-      : isRunnable = isRunnable ?? _defaultIsRunnableCallback;
+      : isRunnable = isRunnable ?? allParametersAreValid;
 }

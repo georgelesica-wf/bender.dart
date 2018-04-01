@@ -2,66 +2,29 @@ import 'package:test/test.dart';
 
 import 'package:bender/src/parameter/bool_parameter.dart';
 
+import 'utils.dart';
+
+BoolParameter getParameter(String rawValue) =>
+    new BoolParameter(helpText: '', name: 'name', rawValue: rawValue);
+
 void main() {
   group('BoolParameter', () {
-    for (var truthyValue in BoolParameter.truthyValues) {
-      test('should parse to true for $truthyValue', () {
-        var param = new BoolParameter(
-          helpText: '',
-          name: 'test-bool',
-          rawValue: truthyValue,
-        );
+    final param = new BoolParameter(helpText: '', name: 'name');
 
-        expect(param.isValueValid, isTrue);
-        expect(param.parsedValue, isTrue);
-        expect(param.rawValue, truthyValue);
-      });
+    for (var rawValue in BoolParameter.truthyValues) {
+      testValue(param, rawValue, true);
     }
 
-    for (var falseyValue in ['', 'false', 'no', '0']) {
-      test('should parse to false for $falseyValue', () {
-        var param = new BoolParameter(
-          helpText: '',
-          name: 'test-bool',
-          rawValue: falseyValue,
-        );
-
-        expect(param.isValueValid, isTrue);
-        expect(param.parsedValue, isFalse);
-        expect(param.rawValue, falseyValue);
-      });
+    for (var rawValue in [' true', 'true ', 'TRUE', 'True']) {
+      testValue(param, rawValue, true);
     }
 
-    test('should accept values with leading / trailing whitespace', () {
-      var trueParam = new BoolParameter(
-        helpText: '',
-        name: 'true-bool',
-        rawValue: ' true ',
-      );
-      expect(trueParam.parsedValue, isTrue);
+    for (var rawValue in ['', 'false', 'no', '0']) {
+      testValue(param, rawValue, false);
+    }
 
-      var falseParam = new BoolParameter(
-        helpText: '',
-        name: 'false-bool',
-        rawValue: ' false ',
-      );
-      expect(falseParam.parsedValue, isFalse);
-    });
-
-    test('should accept values in mixed case', () {
-      var trueParam = new BoolParameter(
-        helpText: '',
-        name: 'true-bool',
-        rawValue: 'TRUE',
-      );
-      expect(trueParam.parsedValue, isTrue);
-
-      var falseParam = new BoolParameter(
-        helpText: '',
-        name: 'false-bool',
-        rawValue: 'FALSE',
-      );
-      expect(falseParam.parsedValue, isFalse);
-    });
+    for (var rawValue in [' false', 'false ', 'FALSE', 'False']) {
+      testValue(param, rawValue, false);
+    }
   });
 }

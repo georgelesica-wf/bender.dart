@@ -9,10 +9,10 @@ class IntParameter extends Parameter<int> {
     String rawValue: '0',
   })
       : super(
-    helpText: helpText,
-    name: name,
-    rawValue: rawValue,
-  );
+          helpText: helpText,
+          name: name,
+          rawValue: rawValue,
+        );
 
   @override
   int get parsedValue => int.parse(rawValue.trim());
