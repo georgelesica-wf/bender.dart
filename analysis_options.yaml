@@ -55,7 +55,7 @@ linter:
 
     # Avoid catches without on clauses.
     # recommendation: optional
-    - avoid_catches_without_on_clauses
+    #- avoid_catches_without_on_clauses
 
     # Don't explicitly catch Error or types that implement it.
     # recommendation: optional

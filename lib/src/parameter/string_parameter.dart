@@ -22,16 +22,17 @@ class StringParameter extends Parameter<String> {
           rawValue: rawValue,
         );
 
+  bool get _checkChoices => (_isEmpty && _checkEmpty) || choices.isEmpty
+      ? true
+      : choices.contains(parsedValue);
+
+  bool get _checkEmpty => emptyAllowed || !_isEmpty;
+
   bool get _isEmpty => parsedValue == '';
-
-  bool get _isValidChoices =>
-      _isValidEmpty || choices.isEmpty ? true : choices.contains(parsedValue);
-
-  bool get _isValidEmpty => emptyAllowed || !_isEmpty;
 
   @override
   @mustCallSuper
-  bool get isValueValid => super.isValueValid && _isValidEmpty && _isValidChoices;
+  bool get isValueValid => super.isValueValid && _checkEmpty && _checkChoices;
 
   @override
   String get parsedValue => rawValue.trim();

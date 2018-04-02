@@ -1,6 +1,7 @@
 import 'dart:async';
 
-const defaultEndpoint = 'https://workiva.hipchat.com/v2/user/@Bender/message';
+const String defaultEndpoint =
+    'https://workiva.hipchat.com/v2/user/@Bender/message';
 
 /// An adapter for sending messages to Bender, generally using
 /// the HipChat API.
