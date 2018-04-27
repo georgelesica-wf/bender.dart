@@ -3,7 +3,7 @@ import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/bool_parameter.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 
-final Action updateGolds = new ActionImpl(
+Action getUpdateGoldsAction() => new ActionImpl(
   getMessage: (context) {
     final prUrl = parameterValue<Uri>(context, 'pr-url');
     final addNewGolds = parameterValue<bool>(context, 'add-new-golds');

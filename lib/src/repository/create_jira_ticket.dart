@@ -3,7 +3,7 @@ import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 import 'package:bender/src/parameter/string_parameter.dart';
 
-final Action createJiraTicket = new ActionImpl(
+Action getCreateJiraTicketAction() => new ActionImpl(
   getMessage: (context) {
     final prUrl = parameterValue<Uri>(context, 'pr-url');
     final project = parameterValue<String>(context, 'project');

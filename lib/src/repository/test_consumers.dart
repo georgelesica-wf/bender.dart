@@ -3,7 +3,7 @@ import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/bool_parameter.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 
-final Action testConsumers = new ActionImpl(
+Action getTestConsumersAction() => new ActionImpl(
   getMessage: (context) {
     final leaveOpen = parameterValue<bool>(context, 'leave-open');
     final prUrl = parameterValue<Uri>(context, 'pr-url');

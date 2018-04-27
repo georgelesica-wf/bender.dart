@@ -2,7 +2,7 @@ import 'package:bender/src/action/action.dart';
 import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 
-final Action rerunSmithy = new ActionImpl(
+Action getRerunSmithyAction() => new ActionImpl(
   getMessage: (context) {
     final prUrl = parameterValue<Uri>(context, 'pr-url');
     return 'rerun smithy for $prUrl';

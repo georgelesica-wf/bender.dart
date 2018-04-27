@@ -14,7 +14,7 @@ class LocalBenderAdapter extends BenderAdapter {
   LocalBenderAdapter(String token, {this.printCallback: print}) : super(token);
 
   @override
-  Future<Null> sendMessage(String message) {
+  Future<Null> sendMessage(String message) async {
     printCallback(message);
     return null;
   }

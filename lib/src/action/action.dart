@@ -28,7 +28,7 @@ abstract class Action implements Context {
   ///
   /// Do not rely on the specific value of the key, treat it as an
   /// entirely opaque, but unique, string and nothing more.
-  String get key => name.replaceAll(_whitespaceRegex, '-');
+  String get key;
 
   /// Name of the action to be displayed to the user in views.
   String get name;
@@ -38,7 +38,16 @@ abstract class Action implements Context {
   Iterable<Parameter> get parameters;
 }
 
-class ActionImpl extends Action {
+class ActionImpl implements Action {
+  ActionImpl({
+    @required this.getMessage,
+    this.helpText: '',
+    IsRunnableCallback isRunnable,
+    @required this.name,
+    this.parameters: const [],
+  })
+      : isRunnable = isRunnable ?? allParametersAreValid;
+
   @override
   final MessageFactory getMessage;
 
@@ -49,17 +58,11 @@ class ActionImpl extends Action {
   final IsRunnableCallback isRunnable;
 
   @override
+  String get key => name.replaceAll(_whitespaceRegex, '-');
+
+  @override
   final String name;
 
   @override
   final Iterable<Parameter> parameters;
-
-  ActionImpl({
-    @required this.getMessage,
-    this.helpText: '',
-    IsRunnableCallback isRunnable,
-    @required this.name,
-    this.parameters: const [],
-  })
-      : isRunnable = isRunnable ?? allParametersAreValid;
 }
