@@ -15,8 +15,8 @@ class ExampleTest {
   }
 }
 
-const outputSuffix = '_output.txt';
-const caseSuffix = '_case.dart';
+const String outputSuffix = '_output.txt';
+const String caseSuffix = '_case.dart';
 
 void main() {
   group('examples', () {

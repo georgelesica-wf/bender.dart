@@ -37,10 +37,10 @@ void main() {
 
     test('should return value if found', () {
       final value0 = parameterValue<String>(context, 'param0');
-      expect(value0, const isInstanceOf<String>());
+      expect(value0, const TypeMatcher<String>());
       expect(value0, 'param');
       final value1 = parameterValue<int>(context, 'param1');
-      expect(value1, const isInstanceOf<int>());
+      expect(value1, const TypeMatcher<int>());
       expect(value1, 10);
     });
 

@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 import 'package:bender/src/parameter/parameter.dart';
 
 class BoolParameter extends Parameter<bool> {
-  static final Iterable<String> truthyValues = const ['true', 'yes', '1'];
+  static const Iterable<String> truthyValues = const ['true', 'yes', '1'];
 
   BoolParameter({
     @required String helpText,

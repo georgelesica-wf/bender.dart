@@ -41,9 +41,9 @@ abstract class Action implements Context {
 class ActionImpl implements Action {
   ActionImpl({
     @required this.getMessage,
+    @required this.name,
     this.helpText: '',
     IsRunnableCallback isRunnable,
-    @required this.name,
     this.parameters: const [],
   })
       : isRunnable = isRunnable ?? allParametersAreValid;
