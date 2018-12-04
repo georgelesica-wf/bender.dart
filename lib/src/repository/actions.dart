@@ -15,17 +15,17 @@ import 'package:bender/src/repository/update_results.dart';
 
 /// An iterable of all available actions.
 Iterable<Action> getAllActions() => [
-  getBootstrapAction(),
-  getBumpVersionAction(),
-  getCreateJiraTicketAction(),
-  getDartFormatAction(),
-  getDeployPrAction(),
-  getMergeMasterAction(),
-  getMonitorStatusAction(),
-  getPubGetAction(),
-  getRerunSkynetAction(),
-  getRerunSmithyAction(),
-  getTestConsumersAction(),
-  getUpdateGoldsAction(),
-  getUpdateResultsAction(),
-];
+      getBootstrapAction(),
+      getBumpVersionAction(),
+      getCreateJiraTicketAction(),
+      getDartFormatAction(),
+      getDeployPrAction(),
+      getMergeMasterAction(),
+      getMonitorStatusAction(),
+      getPubGetAction(),
+      getRerunSkynetAction(),
+      getRerunSmithyAction(),
+      getTestConsumersAction(),
+      getUpdateGoldsAction(),
+      getUpdateResultsAction(),
+    ];

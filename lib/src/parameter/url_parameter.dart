@@ -13,8 +13,7 @@ class UrlParameter extends Parameter<Uri> {
     @required String helpText,
     @required String name,
     String rawValue: '',
-  })
-      : super(
+  }) : super(
           helpText: helpText,
           name: name,
           rawValue: rawValue,

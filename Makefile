@@ -1,10 +1,14 @@
 .PHONY: analyze
 analyze:
-	dartanalyzer $(shell ls lib/*.dart)
+	dartanalyzer --fatal-infos --fatal-warnings lib/ test/
 
 .PHONY: check-fast
 check-fast:
-	pub run build_runner test
+	pub run test -p vm
 
 .PHONY: check-full
-check-full: analyze check-fast
+check-full: analyze format check-fast
+
+.PHONY: format
+format:
+	pub run dart_style:format -l 80 -w --set-exit-if-changed lib/ test/

@@ -15,8 +15,7 @@ class StringParameter extends Parameter<String> {
     this.choices: const [],
     this.emptyAllowed: true,
     String rawValue: '',
-  })
-      : super(
+  }) : super(
           helpText: helpText,
           name: name,
           rawValue: rawValue,

@@ -9,8 +9,7 @@ class BoolParameter extends Parameter<bool> {
     @required String helpText,
     @required String name,
     String rawValue: 'false',
-  })
-      : super(
+  }) : super(
           helpText: helpText,
           name: name,
           rawValue: rawValue,

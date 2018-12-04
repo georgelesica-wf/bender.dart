@@ -7,7 +7,7 @@ this directory:
   * `<YOUR TEST NAME>_output.txt`
 
 The `.dart` file must be a runnable Dart program (it must have
-a `main` method). It will probably import the Bender.dart
+a `main` method). It will probably import the `bender`
 package and do something that creates some predictable output.
 
 The `.txt` file should contain the expected output of the
