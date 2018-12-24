@@ -3,7 +3,16 @@ import 'package:meta/meta.dart';
 import 'package:bender/src/parameter/parameter.dart';
 
 class BoolParameter extends Parameter<bool> {
-  static const Iterable<String> truthyValues = const ['true', 'yes', '1'];
+  static const Iterable<String> truthyValues = const [
+    'true',
+    't',
+    'yes',
+    'y',
+    '1',
+  ];
+
+  static bool isTruthy(String value) =>
+      truthyValues.contains(value.trim().toLowerCase());
 
   BoolParameter({
     @required String helpText,
@@ -16,7 +25,7 @@ class BoolParameter extends Parameter<bool> {
         );
 
   @override
-  bool get parsedValue => truthyValues.contains(rawValue.trim().toLowerCase());
+  bool get parsedValue => isTruthy(rawValue);
 
   @override
   final String typeHelpText =

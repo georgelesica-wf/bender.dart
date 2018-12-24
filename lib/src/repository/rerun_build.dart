@@ -2,13 +2,13 @@ import 'package:bender/src/action/action.dart';
 import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 
-Action getRerunSkynetAction() => new ActionImpl(
+Action getRerunBuildAction() => new ActionImpl(
       getMessage: (context) {
         final prUrl = parameterValue<Uri>(context, 'pr-url');
-        return 'rerun skynet for $prUrl';
+        return 'rerun build for $prUrl';
       },
-      helpText: 'Re-run Skynet on the PR',
-      name: 'Re-run Skynet',
+      helpText: 'Re-run CI build on the current PR',
+      name: 'Re-run build',
       parameters: [
         new PrParameter(),
       ],

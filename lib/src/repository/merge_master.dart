@@ -8,7 +8,7 @@ Action getMergeMasterAction() => new ActionImpl(
         return 'update branch $prUrl merge';
       },
       helpText: 'Merge master branch into the PR branch',
-      name: 'Merge Master',
+      name: 'Merge master into PR',
       parameters: [
         new PrParameter(),
       ],

@@ -2,13 +2,13 @@ import 'package:bender/src/action/action.dart';
 import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 
-Action getUpdateResultsAction() => new ActionImpl(
+Action getAbideUpdateAction() => new ActionImpl(
       getMessage: (context) {
-        final prUrl = parameterValue<String>(context, 'pr-url');
-        return 'update results $prUrl';
+        final prUrl = parameterValue<Uri>(context, 'pr-url');
+        return 'abide update $prUrl';
       },
-      helpText: 'Update consumer test results',
-      name: 'Update Consumer Results',
+      helpText: 'Run Abide against the current PR',
+      name: 'Abide update',
       parameters: [
         new PrParameter(),
       ],

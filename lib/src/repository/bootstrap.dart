@@ -8,7 +8,7 @@ Action getBootstrapAction() => new ActionImpl(
         return 'update branch $prUrl bootstrap';
       },
       helpText: 'Run the SDK bootstrap script and commit',
-      name: 'SDK Bootstrap',
+      name: 'SDK bootstrap',
       parameters: [
         new PrParameter(),
       ],

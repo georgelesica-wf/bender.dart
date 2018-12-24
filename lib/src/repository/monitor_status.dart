@@ -1,21 +1,21 @@
 import 'package:bender/src/action/action.dart';
 import 'package:bender/src/action/utils.dart';
-import 'package:bender/src/parameter/pr_parameter.dart';
+import 'package:bender/src/parameter/monitor_parameter.dart';
 import 'package:bender/src/parameter/string_parameter.dart';
 
 Action getMonitorStatusAction() => new ActionImpl(
       getMessage: (context) {
-        final prUrl = parameterValue<Uri>(context, 'pr-url');
+        final monitorUrl = parameterValue<Uri>(context, 'monitor-url');
         final service = parameterValue<String>(context, 'service');
         if (service == '') {
-          return 'monitor $prUrl';
+          return 'monitor $monitorUrl';
         }
-        return 'monitor $prUrl $service';
+        return 'monitor $monitorUrl --deploy=$service';
       },
       helpText: 'Monitor the status of a PR or Shipyard build',
-      name: 'Monitor Status (PR/Shipyard)',
+      name: 'Monitor Status (PR)',
       parameters: [
-        new PrParameter(),
+        new MonitorParameter(),
         new StringParameter(
           helpText: 'Target deploy service',
           name: 'service',

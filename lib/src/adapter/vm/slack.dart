@@ -1,26 +1,27 @@
 import 'dart:convert' show json;
 import 'dart:io';
 
+import 'package:bender/src/adapter/adapter.dart';
+import 'package:bender/src/adapter/slack.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 
-import 'package:bender/src/adapter/adapter.dart';
-
-final _logger = Logger('vm/slack.dart');
+final _logger = Logger('bender.dart');
 
 BenderAdapter getSlackAdapter({
   @required String token,
-  String benderName = 'Benderbot',
+  String benderName = defaultBenderName,
   Uri endpoint,
   Map<String, String> headers = const {},
 }) {
   assert(token != null);
   assert(benderName != null);
+  assert(headers != null);
 
-  endpoint ??= Uri.parse('https://slack.com/api/chat.postMessage');
+  endpoint ??= Uri.parse(defaultPostMessageEndpoint);
 
   return (message) async {
-    _logger.fine('sending message: $message');
+    _logger.fine('sending slack message: $message');
 
     final client = new HttpClient();
     return client.postUrl(endpoint).then((request) {
@@ -41,7 +42,12 @@ BenderAdapter getSlackAdapter({
       return request.close();
     }).then((response) {
       if (response.statusCode != 204) {
-        throw new Exception('Sending message failed: ${response.join("\n")}');
+        throw new MessageFailedException(
+          benderName: benderName,
+          endpoint: endpoint.toString(),
+          message: message,
+          statusCode: response.statusCode,
+        );
       }
     });
   };

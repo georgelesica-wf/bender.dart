@@ -8,7 +8,7 @@ Action getPubGetAction() => new ActionImpl(
         return 'update branch $prUrl get';
       },
       helpText: 'Run pub get on the PR and commit',
-      name: 'Pub Get',
+      name: 'Pub get',
       parameters: [
         new PrParameter(),
       ],

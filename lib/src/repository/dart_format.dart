@@ -8,7 +8,7 @@ Action getDartFormatAction() => new ActionImpl(
         return 'update branch $prUrl format';
       },
       helpText: 'Run Dart formatter on the PR',
-      name: 'Dart Format',
+      name: 'Dart format',
       parameters: [
         new PrParameter(),
       ],

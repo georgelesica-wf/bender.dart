@@ -14,7 +14,7 @@ Action getUpdateGoldsAction() => new ActionImpl(
         }
       },
       helpText: 'Update functional test gold files',
-      name: 'Update Gold Files',
+      name: 'Update gold files',
       parameters: [
         new BoolParameter(
           helpText: 'Add new gold files',

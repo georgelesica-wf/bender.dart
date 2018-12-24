@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 import 'package:bender/src/adapter/adapter.dart';
 
-final _logger = Logger('vm/hipchat.dart');
+final _logger = Logger('bender.dart');
 
 /// An adapter implementation that relies on HipChat as its
 /// transport, for use on the Dart VM.
@@ -19,7 +19,7 @@ BenderAdapter getHipChatAdapter({
   assert(headers != null);
 
   return (message) async {
-    _logger.fine('sending message: $message');
+    _logger.fine('sending hipchat message: $message');
 
     final client = new HttpClient();
     return client.postUrl(endpoint).then((request) {
@@ -32,7 +32,12 @@ BenderAdapter getHipChatAdapter({
       return request.close();
     }).then((response) {
       if (response.statusCode != 204) {
-        throw new Exception('Sending message failed: ${response.join("\n")}');
+        throw new MessageFailedException(
+          benderName: '',
+          endpoint: endpoint.toString(),
+          message: message,
+          statusCode: response.statusCode,
+        );
       }
     });
   };

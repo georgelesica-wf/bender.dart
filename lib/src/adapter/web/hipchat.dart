@@ -5,24 +5,34 @@ import 'package:meta/meta.dart';
 
 import 'package:bender/src/adapter/adapter.dart';
 
-final _logger = Logger('web/hipchat.dart');
+final _logger = Logger('bender.dart');
 
 BenderAdapter getHipChatAdapter({
   @required Uri endpoint,
   @required String token,
   Map<String, String> headers = const {},
-}) =>
-    (message) async {
-      _logger.fine('sending message: $message');
+}) {
+  assert(endpoint != null);
+  assert(token != null);
+  assert(headers != null);
 
-      final request = await HttpRequest.request(
-        endpoint.toString(),
-        method: 'POST',
-        sendData: message,
-        requestHeaders: headers,
+  return (message) async {
+    _logger.fine('sending hipchat message: $message');
+
+    final request = await HttpRequest.request(
+      endpoint.toString(),
+      method: 'POST',
+      sendData: message,
+      requestHeaders: headers,
+    );
+
+    if (request.status != 204) {
+      throw new MessageFailedException(
+        benderName: '',
+        endpoint: endpoint.toString(),
+        message: message,
+        statusCode: request.status,
       );
-
-      if (request.status != 204) {
-        throw new Exception('Sending message failed: ${request.statusText}');
-      }
-    };
+    }
+  };
+}
