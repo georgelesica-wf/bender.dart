@@ -2,13 +2,13 @@ import 'package:bender/src/action/action.dart';
 import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 
-Action getBootstrapAction() => new ActionImpl(
+Action getRerunBuildAction() => new ActionImpl(
       getMessage: (context) {
         final prUrl = parameterValue<Uri>(context, 'pr-url');
-        return 'update branch $prUrl bootstrap';
+        return 'rerun build for $prUrl';
       },
-      helpText: 'Run the SDK bootstrap script and commit',
-      name: 'SDK bootstrap',
+      helpText: 'Re-run CI build on the current PR',
+      name: 'Re-run build',
       parameters: [
         new PrParameter(),
       ],

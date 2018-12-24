@@ -10,13 +10,12 @@ class StringParameter extends Parameter<String> {
   final bool emptyAllowed;
 
   StringParameter({
-    this.choices: const [],
-    this.emptyAllowed: true,
     @required String helpText,
     @required String name,
+    this.choices: const [],
+    this.emptyAllowed: true,
     String rawValue: '',
-  })
-      : super(
+  }) : super(
           helpText: helpText,
           name: name,
           rawValue: rawValue,

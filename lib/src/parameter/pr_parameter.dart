@@ -8,8 +8,7 @@ class PrParameter extends UrlParameter {
     String helpText: 'The URL of the PR to act upon',
     String name: 'pr-url',
     String rawValue: '',
-  })
-      : super(
+  }) : super(
           helpText: helpText,
           name: name,
           rawValue: rawValue,

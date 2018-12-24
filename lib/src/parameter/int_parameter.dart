@@ -7,8 +7,7 @@ class IntParameter extends Parameter<int> {
     @required String helpText,
     @required String name,
     String rawValue: '0',
-  })
-      : super(
+  }) : super(
           helpText: helpText,
           name: name,
           rawValue: rawValue,

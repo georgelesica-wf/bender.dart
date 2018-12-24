@@ -1,17 +1,19 @@
 name: bender
-description: A library for talking to Bender.
+description: A library for talking to Bender for the Dart VM and the web.
 version: 1.0.0
-homepage: https://www.github.com/Workiva/bender.dart
+homepage: https://www.github.com/georgelesica-wf/bender.dart
 author: George Lesica <george.lesica@workiva.com>
 
 environment:
-  sdk: '>=1.24.1 <2.0.0'
+  sdk: '>=2.0.0 <3.0.0'
 
 dependencies:
   logging: ^0.11.3
   meta: ^1.0.2
 
 dev_dependencies:
-  dart_dev: ^1.9.0
+  build_runner: ^1.0.0
+  build_test: ^0.10.2
+  build_web_compilers: ^0.4.0
   dart_style: ^1.0.7
-  test: ^0.12.33
+  test: ^1.0.0

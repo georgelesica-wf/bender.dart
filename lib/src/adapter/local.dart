@@ -1,21 +1,9 @@
-import 'dart:async';
+import 'package:logging/logging.dart';
 
 import 'package:bender/src/adapter/adapter.dart';
 
-typedef void PrintCallback(String message);
+final _logger = Logger('bender.dart');
 
-/// A local bender adapter that just calls a function with the
-/// message that it would normally send to Bender.
-///
-/// The default callback is the standard [print] function.
-class LocalBenderAdapter extends BenderAdapter {
-  final PrintCallback printCallback;
+BenderAdapter getConsoleAdapter() => (message) async => print(message);
 
-  LocalBenderAdapter(String token, {this.printCallback: print}) : super(token);
-
-  @override
-  Future<Null> sendMessage(String message) async {
-    printCallback(message);
-    return null;
-  }
-}
+BenderAdapter getLoggingAdapter() => (message) async => _logger.info(message);

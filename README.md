@@ -6,7 +6,7 @@ A Dart library for talking to Bender.
 
 Below is a very simple command line usage that will simply
 print the message that would have been sent to Bender if
-a real adapter had been used.
+a different adapter had been used.
 
 The code below can be found in `example/simple_cli.dart` and
 can be run with `pub run example/simple_cli.dart`.
@@ -15,10 +15,13 @@ can be run with `pub run example/simple_cli.dart`.
 import 'package:bender/bender_vm.dart';
 
 void main() {
-  final adapter = new LocalBenderAdapter('fake-token');
+  final adapter = getConsoleAdapter();
   final pubGetAction = getPubGetAction();
-  setParameterValue(
-      pubGetAction, 'pr-url', 'https://www.github.com/Company/Project/pull/1');
-  adapter.sendMessage(pubGetAction.getMessage(pubGetAction));
+  setParameterValue<Uri>(
+    pubGetAction,
+    'pr-url',
+    Uri.parse('https://www.github.com/Company/Project/pull/1'),
+  );
+  adapter(pubGetAction.getMessage(pubGetAction));
 }
 ```

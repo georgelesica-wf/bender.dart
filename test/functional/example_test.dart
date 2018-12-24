@@ -15,19 +15,22 @@ class ExampleTest {
   }
 }
 
-const outputSuffix = '_output.txt';
-const caseSuffix = '_case.dart';
+const String outputSuffix = '_output.txt';
+const String caseSuffix = '_case.dart';
 
 void main() {
   group('examples', () {
     final examplesDirectory = new Directory('example');
 
-    final results = examplesDirectory.listSync(recursive: true).fold(<String, ExampleTest>{}, (results, entity) {
+    final results = examplesDirectory
+        .listSync(recursive: true)
+        .fold(<String, ExampleTest>{}, (results, entity) {
       if (entity is File) {
         final fileName = path.basename(entity.path);
-        
+
         if (fileName.endsWith(outputSuffix)) {
-          final testName = fileName.substring(0, fileName.length - outputSuffix.length);
+          final testName =
+              fileName.substring(0, fileName.length - outputSuffix.length);
           final content = entity.readAsStringSync();
 
           if (results.containsKey(testName)) {
@@ -36,9 +39,10 @@ void main() {
             results[testName] = new ExampleTest(expectedOutput: content);
           }
         }
-        
+
         if (fileName.endsWith(caseSuffix)) {
-          final testName = fileName.substring(0, fileName.length - caseSuffix.length);
+          final testName =
+              fileName.substring(0, fileName.length - caseSuffix.length);
           final output = Process.runSync('pub', ['run', entity.path]).stdout;
 
           if (results.containsKey(testName)) {

@@ -2,13 +2,13 @@ import 'package:bender/src/action/action.dart';
 import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 
-Action getBootstrapAction() => new ActionImpl(
+Action getAbideUpdateAction() => new ActionImpl(
       getMessage: (context) {
         final prUrl = parameterValue<Uri>(context, 'pr-url');
-        return 'update branch $prUrl bootstrap';
+        return 'abide update $prUrl';
       },
-      helpText: 'Run the SDK bootstrap script and commit',
-      name: 'SDK bootstrap',
+      helpText: 'Run Abide against the current PR',
+      name: 'Abide update',
       parameters: [
         new PrParameter(),
       ],

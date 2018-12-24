@@ -347,7 +347,7 @@ linter:
 
     # Sort constructor declarations before method declarations.
     # recommendation: optional
-    - sort_constructors_first
+    #- sort_constructors_first
 
     # Sort unnamed constructor declarations first.
     # recommendation: optional

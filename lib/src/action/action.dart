@@ -5,29 +5,28 @@ import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/parameter.dart';
 import 'package:bender/src/action/typedefs.dart';
 
-final _whitespaceRegex = new RegExp(r'\s+\b|\b\s');
+final _whitespaceRegex = RegExp(r'\s+\b|\b\s');
 
 abstract class Action implements Context {
-  /// Callback to produce a Bender message that will trigger the
-  /// action represented by the instance in its current state.
+  /// Callback to produce a Bender message that will trigger the action
+  /// represented by the instance in its current state.
   ///
-  /// For example, if bender responded to the command "hi there",
-  /// this function would return the string "hi there" for the
-  /// "Say Hi" action.
+  /// For example, if bender responded to the command "hi there", this function
+  /// would return the string "hi there" for the "Say Hi" action.
   MessageFactory get getMessage;
 
   /// Help text to be displayed along with the action's interface.
   String get helpText;
 
-  /// Callback to determine whether or not this action can be
-  /// invoked in the given context.
+  /// Callback to determine whether or not this action can be invoked in the
+  /// given context.
   IsRunnableCallback get isRunnable;
 
-  /// A unique key that can be used by view libraries to identify
-  /// this action to avoid unnecessary repainting.
+  /// A unique key that can be used by view libraries to identify this action to
+  /// avoid unnecessary repainting.
   ///
-  /// Do not rely on the specific value of the key, treat it as an
-  /// entirely opaque, but unique, string and nothing more.
+  /// Do not rely on the specific value of the key, treat it as an entirely
+  /// opaque, but unique, string and nothing more.
   String get key;
 
   /// Name of the action to be displayed to the user in views.
@@ -41,12 +40,11 @@ abstract class Action implements Context {
 class ActionImpl implements Action {
   ActionImpl({
     @required this.getMessage,
+    @required this.name,
     this.helpText: '',
     IsRunnableCallback isRunnable,
-    @required this.name,
     this.parameters: const [],
-  })
-      : isRunnable = isRunnable ?? allParametersAreValid;
+  }) : isRunnable = isRunnable ?? allParametersAreValid;
 
   @override
   final MessageFactory getMessage;
