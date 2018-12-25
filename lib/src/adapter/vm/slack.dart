@@ -1,4 +1,4 @@
-import 'dart:convert' show json;
+import 'dart:convert' show json, utf8;
 import 'dart:io';
 
 import 'package:bender/src/adapter/adapter.dart';
@@ -24,31 +24,30 @@ BenderAdapter getSlackAdapter({
     _logger.fine('sending slack message: $message');
 
     final client = new HttpClient();
-    return client.postUrl(endpoint).then((request) {
-      headers.forEach((key, value) {
-        request.headers.add(key, value);
-      });
-      request.headers
-        ..add('Authorization', 'Bearer $token')
-        ..contentType = ContentType('application', 'json');
+    final request = await client.postUrl(endpoint);
 
-      final arguments = {
-        'token': token,
-        'channel': benderName,
-        'text': message,
-      };
-      request.write(json.encode(arguments));
-
-      return request.close();
-    }).then((response) {
-      if (response.statusCode != 204) {
-        throw new MessageFailedException(
-          benderName: benderName,
-          endpoint: endpoint.toString(),
-          message: message,
-          statusCode: response.statusCode,
-        );
-      }
+    headers.forEach((key, value) {
+      request.headers.add(key, value);
     });
+    request.headers
+      ..add('Authorization', 'Bearer $token')
+      ..contentType = ContentType('application', 'json');
+    final arguments = {
+      'token': token,
+      'channel': benderName,
+      'text': message,
+    };
+    request.write(json.encode(arguments));
+
+    final response = await request.close();
+
+    return MessageReceipt(
+      benderName: benderName,
+      endpoint: endpoint.toString(),
+      message: message,
+      response: await response.transform(utf8.decoder).join(''),
+      statusCode: response.statusCode,
+      wasSuccessful: response.statusCode == 204,
+    );
   };
 }

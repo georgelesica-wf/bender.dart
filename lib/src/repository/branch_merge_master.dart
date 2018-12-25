@@ -4,7 +4,8 @@ import 'package:bender/src/parameter/branch_parameter.dart';
 
 Action getBranchMergeMasterAction() => new ActionImpl(
       getMessage: (context) {
-        final branch = parameterValue<Uri>(context, 'branch');
+        final branch =
+            parameterValue<Uri>(context, BranchParameter.parameterName);
         return 'update branch $branch merge';
       },
       helpText: 'Merge master branch into the current branch',

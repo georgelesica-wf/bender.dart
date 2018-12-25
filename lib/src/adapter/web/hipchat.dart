@@ -19,20 +19,26 @@ BenderAdapter getHipChatAdapter({
   return (message) async {
     _logger.fine('sending hipchat message: $message');
 
+    final requestHeaders = <String, String>{};
+    headers.forEach((key, value) {
+      requestHeaders[key] = value;
+    });
+    requestHeaders['Authorization'] = 'Bearer $token';
+    requestHeaders['Content-Type'] = 'text/plain';
+
     final request = await HttpRequest.request(
       endpoint.toString(),
       method: 'POST',
+      requestHeaders: requestHeaders,
       sendData: message,
-      requestHeaders: headers,
     );
 
-    if (request.status != 204) {
-      throw new MessageFailedException(
-        benderName: '',
-        endpoint: endpoint.toString(),
-        message: message,
-        statusCode: request.status,
-      );
-    }
+    return MessageReceipt(
+      endpoint: endpoint.toString(),
+      message: message,
+      response: request.responseText,
+      statusCode: request.status,
+      wasSuccessful: request.status == 204,
+    );
   };
 }

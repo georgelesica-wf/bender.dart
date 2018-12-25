@@ -3,10 +3,13 @@ import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/monitor_parameter.dart';
 import 'package:bender/src/parameter/string_parameter.dart';
 
+const String serviceParameterName = 'service';
+
 Action getMonitorStatusAction() => new ActionImpl(
       getMessage: (context) {
-        final monitorUrl = parameterValue<Uri>(context, 'monitor-url');
-        final service = parameterValue<String>(context, 'service');
+        final monitorUrl =
+            parameterValue<Uri>(context, MonitorParameter.parameterName);
+        final service = parameterValue<String>(context, serviceParameterName);
         if (service == '') {
           return 'monitor $monitorUrl';
         }
@@ -18,7 +21,7 @@ Action getMonitorStatusAction() => new ActionImpl(
         new MonitorParameter(),
         new StringParameter(
           helpText: 'Target deploy service',
-          name: 'service',
+          name: serviceParameterName,
         ),
       ],
     );

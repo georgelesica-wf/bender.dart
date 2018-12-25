@@ -9,35 +9,63 @@ import 'package:meta/meta.dart';
 /// The adapter will be called with the exact message that should
 /// be delivered to Bender.
 ///
-/// If the adapter is unable to send a particular message for
-/// whatever reason, it should throw an instance of
-/// [MessageFailedException], providing appropriate values
-/// for its fields.
-///
-/// In other words, there are two possible things that might
-/// happen when an adapter is called: 1) it sends the provided
-/// message successfully, or 2) it throws [MessageFailedException].
-/// No other outcomes are allowed.
-typedef Future<void> BenderAdapter(String message);
+/// Once the message has been sent, the adapter should return
+/// a [MessageReceipt] instance that indicates, at a minimum,
+/// the message it sent and whether or not the message was sent
+/// successfully.
+typedef Future<MessageReceipt> BenderAdapter(String message);
 
-/// A useful exception class to be used to communicate message
-/// failures from adapter implementations.
-class MessageFailedException implements Exception {
+/// A class that encapsulates an attempt to send Bender a message
+/// and any response received.
+///
+/// Not all adapters will have reasonable values for all fields,
+/// depending on the type of transport they use. It is perfectly
+/// acceptable to re-purpose fields if that makes sense for a
+/// given adapter.
+class MessageReceipt {
+  /// The name of the bot for the given transport.
   final String benderName;
 
+  /// The endpoint (or other means of address) used.
   final String endpoint;
 
+  /// The exact message that was sent to Bender.
   final String message;
 
+  /// The raw response received from the transport used to send
+  /// the message to Bender.
+  final String response;
+
+  /// The status code received from the transport, if any.
   final int statusCode;
 
-  MessageFailedException({
-    @required this.benderName,
-    @required this.endpoint,
+  /// Whether or not the message to Bender was successfully sent.
+  ///
+  /// This doesn't necessarily indicate whether or not Bender was
+  /// able to parse and execute the command included in the message,
+  /// just whether or not the adapter was able to send it.
+  final bool wasSuccessful;
+
+  MessageReceipt({
     @required this.message,
-    @required this.statusCode,
-  });
+    @required this.wasSuccessful,
+    this.benderName = '',
+    this.endpoint = '',
+    this.response = '',
+    this.statusCode = 0,
+  })  : assert(message != null),
+        assert(wasSuccessful != null),
+        assert(benderName != null),
+        assert(endpoint != null),
+        assert(response != null),
+        assert(statusCode != null);
 
   @override
-  String toString() => 'Message failed ($statusCode): $message';
+  String toString() => 'MessageReceipt\n'
+      '  benderName: $benderName\n'
+      '  endpoint: $endpoint\n'
+      '  message: $message\n'
+      '  response:\n$response\n'
+      '  statusCode: $statusCode\n'
+      '  wasSuccessful: $wasSuccessful';
 }

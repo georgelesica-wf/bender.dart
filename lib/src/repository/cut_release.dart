@@ -4,7 +4,7 @@ import 'package:bender/src/parameter/repo_parameter.dart';
 
 Action getCutReleaseAction() => new ActionImpl(
       getMessage: (context) {
-        final repo = parameterValue<Uri>(context, 'repo');
+        final repo = parameterValue<Uri>(context, RepoParameter.parameterName);
         return 'release $repo';
       },
       helpText: 'Cut a release of the current repo',

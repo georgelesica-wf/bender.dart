@@ -36,17 +36,17 @@ BenderAdapter getSlackAdapter({
     final request = await HttpRequest.request(
       endpoint.toString(),
       method: 'POST',
-      sendData: json.encode(arguments),
       requestHeaders: requestHeaders,
+      sendData: json.encode(arguments),
     );
 
-    if (request.status != 204) {
-      throw new MessageFailedException(
-        benderName: benderName,
-        endpoint: endpoint.toString(),
-        message: message,
-        statusCode: request.status,
-      );
-    }
+    return MessageReceipt(
+      benderName: benderName,
+      endpoint: endpoint.toString(),
+      message: message,
+      response: request.responseText,
+      statusCode: request.status,
+      wasSuccessful: request.status == 204,
+    );
   };
 }

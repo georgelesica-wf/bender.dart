@@ -3,10 +3,12 @@ import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/bool_parameter.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 
+const String goldsParameterName = 'add-new-golds';
+
 Action getUpdateGoldsAction() => new ActionImpl(
       getMessage: (context) {
-        final prUrl = parameterValue<Uri>(context, 'pr-url');
-        final addNewGolds = parameterValue<bool>(context, 'add-new-golds');
+        final prUrl = parameterValue<Uri>(context, PrParameter.parameterName);
+        final addNewGolds = parameterValue<bool>(context, goldsParameterName);
         if (addNewGolds) {
           return 'update golds $prUrl --add-new';
         } else {
@@ -18,7 +20,7 @@ Action getUpdateGoldsAction() => new ActionImpl(
       parameters: [
         new BoolParameter(
           helpText: 'Add new gold files',
-          name: 'add-new-golds',
+          name: goldsParameterName,
         ),
         new PrParameter(),
       ],

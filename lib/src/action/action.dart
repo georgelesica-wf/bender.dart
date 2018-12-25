@@ -11,8 +11,8 @@ abstract class Action implements Context {
   /// Callback to produce a Bender message that will trigger the action
   /// represented by the instance in its current state.
   ///
-  /// For example, if bender responded to the command "hi there", this function
-  /// would return the string "hi there" for the "Say Hi" action.
+  /// For example, if bender responded to the command "hi there", this
+  /// function might return the string "hi there" for the "SayHi" action.
   MessageFactory get getMessage;
 
   /// Help text to be displayed along with the action's interface.
@@ -29,6 +29,10 @@ abstract class Action implements Context {
   /// opaque, but unique, string and nothing more.
   String get key;
 
+  /// A shortcut to simply get the message represented by the current
+  /// state of the action and its parameters.
+  String get message;
+
   /// Name of the action to be displayed to the user in views.
   String get name;
 
@@ -44,7 +48,13 @@ class ActionImpl implements Action {
     this.helpText: '',
     IsRunnableCallback isRunnable,
     this.parameters: const [],
-  }) : isRunnable = isRunnable ?? allParametersAreValid;
+  }) : isRunnable = isRunnable ?? allParametersAreValid {
+    // Guard against duplicate parameter names.
+    final names = parameters.map((param) => param.name).toSet();
+    if (names.length != parameters.length) {
+      throw ArgumentError('All parameters must have unique names');
+    }
+  }
 
   @override
   final MessageFactory getMessage;
@@ -57,6 +67,9 @@ class ActionImpl implements Action {
 
   @override
   String get key => name.replaceAll(_whitespaceRegex, '-');
+
+  @override
+  String get message => getMessage(this);
 
   @override
   final String name;

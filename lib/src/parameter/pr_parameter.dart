@@ -4,13 +4,14 @@ final _prRegex = new RegExp(r'(https://(www\.)?github\.com/.+/.+/pull/\d+).*');
 
 /// A parameter that holds a GitHub pull request URL and nothing else.
 class PrParameter extends UrlParameter {
+  static const String parameterName = 'pr-url';
+
   PrParameter({
-    String helpText: 'The URL of the PR to act upon',
-    String name: 'pr-url',
+    String helpText: 'The URL of the pull request to act upon',
     String rawValue: '',
   }) : super(
           helpText: helpText,
-          name: name,
+          name: parameterName,
           rawValue: rawValue,
         );
 

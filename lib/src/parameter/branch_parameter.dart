@@ -3,15 +3,17 @@ import 'package:bender/src/parameter/string_parameter.dart';
 final RegExp _branchRegex =
     new RegExp(r'https://github\.com/Workiva/([^/?]+)/compare/([^/?]+)');
 
-/// A parameter that holds a Workiva repo and branch name.
+/// A parameter that holds a Workiva repo and branch name, separated
+/// with a "/".
 class BranchParameter extends StringParameter {
+  static const String parameterName = 'branch';
+
   BranchParameter({
     String helpText: 'A repo and branch name',
-    String name: 'branch',
     String rawValue: '',
   }) : super(
           helpText: helpText,
-          name: name,
+          name: parameterName,
           rawValue: rawValue,
         );
 

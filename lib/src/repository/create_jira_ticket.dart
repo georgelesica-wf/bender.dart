@@ -3,10 +3,12 @@ import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 import 'package:bender/src/parameter/string_parameter.dart';
 
+const String projectParameterName = 'project';
+
 Action getCreateJiraTicketAction() => new ActionImpl(
       getMessage: (context) {
-        final prUrl = parameterValue<Uri>(context, 'pr-url');
-        final project = parameterValue<String>(context, 'project');
+        final prUrl = parameterValue<Uri>(context, PrParameter.parameterName);
+        final project = parameterValue<String>(context, projectParameterName);
 
         if (project == '') {
           return 'ticket $prUrl';
@@ -20,7 +22,7 @@ Action getCreateJiraTicketAction() => new ActionImpl(
         new PrParameter(),
         new StringParameter(
           helpText: 'The project in which to create the new ticket (optional)',
-          name: 'project',
+          name: projectParameterName,
         ),
       ],
     );

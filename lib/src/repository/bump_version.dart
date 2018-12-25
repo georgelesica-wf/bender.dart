@@ -3,10 +3,12 @@ import 'package:bender/src/action/utils.dart';
 import 'package:bender/src/parameter/pr_parameter.dart';
 import 'package:bender/src/parameter/string_parameter.dart';
 
+const String bumpParameterName = 'bump-type';
+
 Action getBumpVersionAction() => new ActionImpl(
       getMessage: (context) {
-        final prUrl = parameterValue<Uri>(context, 'pr-url');
-        final bumpType = parameterValue<String>(context, 'bump-type');
+        final prUrl = parameterValue<Uri>(context, PrParameter.parameterName);
+        final bumpType = parameterValue<String>(context, bumpParameterName);
         if (bumpType == '') {
           return 'update branch $prUrl bump';
         }
@@ -19,7 +21,7 @@ Action getBumpVersionAction() => new ActionImpl(
         new StringParameter(
           choices: ['major', 'minor', 'patch'],
           helpText: 'Type of bump: major, minor, or patch',
-          name: 'bump-type',
+          name: bumpParameterName,
           rawValue: 'patch',
         ),
       ],

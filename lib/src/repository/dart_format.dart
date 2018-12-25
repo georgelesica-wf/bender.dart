@@ -4,7 +4,7 @@ import 'package:bender/src/parameter/pr_parameter.dart';
 
 Action getDartFormatAction() => new ActionImpl(
       getMessage: (context) {
-        final prUrl = parameterValue<Uri>(context, 'pr-url');
+        final prUrl = parameterValue<Uri>(context, PrParameter.parameterName);
         return 'update branch $prUrl format';
       },
       helpText: 'Run Dart formatter on the PR',

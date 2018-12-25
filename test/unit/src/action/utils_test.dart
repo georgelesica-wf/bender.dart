@@ -44,8 +44,14 @@ void main() {
       expect(value1, 10);
     });
 
-    test('should throw StateError if name not found', () {
-      expect(() => parameterValue<String>(context, 'fake'), throwsStateError);
+    test('should throw ArgumentError on incorrect value type', () {
+      expect(
+          () => parameterValue<String>(context, 'param1'), throwsArgumentError);
+    });
+
+    test('should not throw and return null if name not found', () {
+      expect(() => parameterValue<String>(context, 'fake'), returnsNormally);
+      expect(parameterValue<String>(context, 'fake'), isNull);
     });
   });
 
@@ -69,15 +75,14 @@ void main() {
       expect(context.parameters[1].rawValue, '5');
     });
 
-    // Skipped until method type parameters are reified
-    test('should throw StateError on incorrect value type', () {
+    test('should throw ArgumentError on incorrect value type', () {
       expect(() => setParameterValue<String>(context, 'param1', '5'),
-          throwsStateError);
-    }, skip: true);
+          throwsArgumentError);
+    });
 
-    test('should throw StateError if name not found', () {
+    test('should not throw if name not found', () {
       expect(
-          () => setParameterValue(context, 'fake', 'value'), throwsStateError);
+          () => setParameterValue(context, 'fake', 'value'), returnsNormally);
     });
   });
 }

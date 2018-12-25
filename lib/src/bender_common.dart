@@ -3,7 +3,7 @@ export 'action/context.dart' show Context;
 export 'action/typedefs.dart' show IsRunnableCallback, MessageFactory;
 export 'action/utils.dart'
     show allParametersAreValid, parameterValue, setParameterValue;
-export 'adapter/adapter.dart' show BenderAdapter, MessageFailedException;
+export 'adapter/adapter.dart' show BenderAdapter, MessageReceipt;
 export 'adapter/local.dart' show getConsoleAdapter, getLoggingAdapter;
 export 'parameter/bool_parameter.dart' show BoolParameter;
 export 'parameter/int_parameter.dart' show IntParameter;

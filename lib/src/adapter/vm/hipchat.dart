@@ -1,3 +1,4 @@
+import 'dart:convert' show utf8;
 import 'dart:io';
 
 import 'package:logging/logging.dart';
@@ -22,23 +23,25 @@ BenderAdapter getHipChatAdapter({
     _logger.fine('sending hipchat message: $message');
 
     final client = new HttpClient();
-    return client.postUrl(endpoint).then((request) {
-      headers.forEach((key, value) {
-        request.headers.add(key, value);
-      });
-      request.headers.add('Authorization', 'Bearer $token');
 
-      request.write(message);
-      return request.close();
-    }).then((response) {
-      if (response.statusCode != 204) {
-        throw new MessageFailedException(
-          benderName: '',
-          endpoint: endpoint.toString(),
-          message: message,
-          statusCode: response.statusCode,
-        );
-      }
+    final request = await client.postUrl(endpoint);
+
+    headers.forEach((key, value) {
+      request.headers.add(key, value);
     });
+    request.headers.add('Authorization', 'Bearer $token');
+    request.headers.add('Content-Type', 'text/plain');
+    request.write(message);
+    await request.flush();
+
+    final response = await request.close();
+
+    return MessageReceipt(
+      endpoint: endpoint.toString(),
+      message: message,
+      response: await response.transform(utf8.decoder).join('\n'),
+      statusCode: response.statusCode,
+      wasSuccessful: response.statusCode == 204,
+    );
   };
 }

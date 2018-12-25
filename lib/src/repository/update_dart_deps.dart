@@ -4,7 +4,7 @@ import 'package:bender/src/parameter/repo_parameter.dart';
 
 Action getUpdateDartDepsAction() => new ActionImpl(
       getMessage: (context) {
-        final repo = parameterValue<Uri>(context, 'repo');
+        final repo = parameterValue<Uri>(context, RepoParameter.parameterName);
         return 'pub update $repo';
       },
       helpText: 'Update Dart dependencies for the current repo',

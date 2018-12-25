@@ -4,7 +4,7 @@ import 'package:bender/src/parameter/pr_parameter.dart';
 
 Action getBootstrapAction() => new ActionImpl(
       getMessage: (context) {
-        final prUrl = parameterValue<Uri>(context, 'pr-url');
+        final prUrl = parameterValue<Uri>(context, PrParameter.parameterName);
         return 'update branch $prUrl bootstrap';
       },
       helpText: 'Run the SDK bootstrap script and commit',

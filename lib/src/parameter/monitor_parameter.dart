@@ -5,13 +5,14 @@ final _monitorRegex = new RegExp(
 
 /// A parameter that holds a GitHub pull request URL and nothing else.
 class MonitorParameter extends UrlParameter {
+  static const String parameterName = 'monitor-url';
+
   MonitorParameter({
     String helpText: 'The URL of the job to monitor',
-    String name: 'monitor-url',
     String rawValue: '',
   }) : super(
           helpText: helpText,
-          name: name,
+          name: parameterName,
           rawValue: rawValue,
         );
 

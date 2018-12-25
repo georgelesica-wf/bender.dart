@@ -4,13 +4,14 @@ final RegExp _repoRegex = new RegExp(r'https://github\.com/Workiva/([^/?]+)');
 
 /// A parameter that holds the name of a Workiva GitHub repo.
 class RepoParameter extends StringParameter {
+  static const String parameterName = 'repo';
+
   RepoParameter({
     String helpText: 'A Workiva repo name',
-    String name: 'repo',
     String rawValue: '',
   }) : super(
           helpText: helpText,
-          name: name,
+          name: parameterName,
           rawValue: rawValue,
         );
 
